@@ -190,8 +190,8 @@ def calculate_adj_matrix(x, y, x_pixel=None, y_pixel=None, image=None, beta=49, 
 	return pairwise_distance(X)
 
 
-
-def screen_svg(label_name,adata,gene_num=200,nei_num=3,min_in_group_fraction=0.8,min_in_out_group_ratio=1,min_fold_change=1.5,p_cut=0.05):
+#identify SVGs in reference to SpaGCN
+def screen_svg(label_name,adata,gene_num=200,nei_num=3,min_in_group_fraction=0.8,min_in_out_group_ratio=1,min_fold_change=1.5,p_cut=0.05): 
     svg_pool=[]
     svg_dict={}
     unique_label=adata.obs[label_name].unique()
