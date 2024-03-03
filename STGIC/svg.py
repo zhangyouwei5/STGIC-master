@@ -191,7 +191,7 @@ def calculate_adj_matrix(x, y, x_pixel=None, y_pixel=None, image=None, beta=49, 
 
 
 
-def screen_svg(label_name,adata,gene_num=400,nei_num=3,min_in_group_fraction=0.8,min_in_out_group_ratio=1,min_fold_change=1.5,p_cut=0.05):
+def screen_svg(label_name,adata,gene_num=200,nei_num=3,min_in_group_fraction=0.8,min_in_out_group_ratio=1,min_fold_change=1.5,p_cut=0.05):
     svg_pool=[]
     svg_dict={}
     unique_label=adata.obs[label_name].unique()
@@ -240,8 +240,8 @@ def screen_svg(label_name,adata,gene_num=400,nei_num=3,min_in_group_fraction=0.8
             count+=1
         if count>=gene_num:
             break   
-    sc.pp.neighbors(adata)
+    sc.pp.neighbors(adata,use_rep="spatial")
     svg_idx=[list(adata.var_names).index(i) for i in svg_list]
-    moran = sc.metrics.morans_i(adata.obsp["distances"], adata.X[:,svg_idx].T)
+    moran = sc.metrics.morans_i(adata.obsp["connectivities"], adata.X[:,svg_idx].T)
     print('mean and median moran I are', np.mean(moran),np.median(moran))
     return moran
